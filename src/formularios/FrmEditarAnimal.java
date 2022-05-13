@@ -63,6 +63,9 @@ public class FrmEditarAnimal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe de llenar los campos para poder agregar un animal", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        if(this.campoTextoNombre.getText().length() > 100){
+            JOptionPane.showMessageDialog(this, "El campo nombre está muy largo", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
         String nombre = this.campoTextoNombre.getText();
         
         boolean esEntero = this.validaEntero(this.campoTextoEdad.getText());
@@ -176,7 +179,7 @@ public class FrmEditarAnimal extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Añadir/Eliminar Animal");
 
         lblNombre.setText("Nombre");
