@@ -219,6 +219,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "La especie se ha guardado exitosamente, su ID es el siguiente: " + especie.getId(), "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
+        /**
+     * 
+     */
+    private void clickBtnRegistrarActualizarItinerario() {
+        if (frmItinerario != null) {
+
+        } else {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    frmItinerario = new FrmRegistroItinerario(negocio);
+                    frmItinerario.setVisible(true);
+                }
+            });
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -264,6 +280,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         btnRegistrarActualizarItinerarios.setText("Registro/Actualización Itinerarios");
+        btnRegistrarActualizarItinerarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActualizarItinerariosActionPerformed(evt);
+            }
+        });
 
         lblNombre.setText("Nombre");
 
@@ -446,6 +467,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarAnimalesActionPerformed
 
+    private void btnRegistrarActualizarItinerariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActualizarItinerariosActionPerformed
+        // TODO add your handling code here:
+        this.clickBtnRegistrarActualizarItinerario();
+    }//GEN-LAST:event_btnRegistrarActualizarItinerariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -501,6 +527,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     public static FrmRegistroHabitat frmHabitat;
     public static FrmEditarAnimal frmAnimal;
+    public static FrmRegistroItinerario frmItinerario;
     private INegocio negocio;
     private List<Habitat> listaHabitats;
     private List<Cuidador> listaCuidadores;

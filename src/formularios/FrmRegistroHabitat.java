@@ -151,7 +151,7 @@ public class FrmRegistroHabitat extends javax.swing.JFrame {
      * Mostrar mensaje hábitat repetido
      */
     private void mostrarMensajeRepeticion() {
-        JOptionPane.showMessageDialog(this, "El hábitat no puede ser dado de alta", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "El hábitat no puede ser dado de alta debido a que ya se encuentra registrado.", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
