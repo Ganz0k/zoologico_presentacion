@@ -134,7 +134,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * Muestra mensaje de especie ya existente
      */
     private void mostrarMensajeEspecieExistente() {
-        JOptionPane.showMessageDialog(this, "La especie no puede ser dada de alta", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "La especie no puede ser dada de alta debido a que ya se encuentra una registrada.", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
