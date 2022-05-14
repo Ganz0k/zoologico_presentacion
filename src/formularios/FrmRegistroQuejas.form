@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -25,47 +25,55 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="lblItinerario" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblGuia" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblHoras" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblFechas" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblQueja" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                              <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="lblItinerario" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblGuia" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblHoras" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblFechas" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblQueja" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                      <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblVisitante" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTelefono" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtVisitante" max="32767" attributes="0"/>
+                          <Component id="cajaCombinadaHoras" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtGuia" alignment="1" max="32767" attributes="0"/>
+                          <Component id="cajaCombinadaFechas" alignment="1" max="32767" attributes="0"/>
+                          <Component id="cajaCombinadaItinerarios" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                          <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtTelefono" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblVisitante" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblTelefono" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace pref="77" max="32767" attributes="0"/>
+                      <Component id="lblSugerencia" min="-2" max="-2" attributes="0"/>
                   </Group>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtTelefono" max="32767" attributes="0"/>
-                  <Component id="txtVisitante" max="32767" attributes="0"/>
-                  <Component id="cajaCombinadaHoras" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtGuia" alignment="1" max="32767" attributes="0"/>
-                  <Component id="cajaCombinadaFechas" alignment="1" max="32767" attributes="0"/>
-                  <Component id="cajaCombinadaItinerarios" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" pref="339" max="32767" attributes="0"/>
-                  <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Component id="btnEnviarQueja" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -104,17 +112,19 @@
                   <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="lblTelefono" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTelefono" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtVisitante" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblSugerencia" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="btnEnviarQueja" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
@@ -178,6 +188,9 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtVisitante">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtVisitanteKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblGuia">
       <Properties>
@@ -216,11 +229,27 @@
         <Property name="text" type="java.lang.String" value="Tel&#xe9;fono"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTelefono">
-    </Component>
     <Component class="javax.swing.JButton" name="btnEnviarQueja">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Enviar queja"/>
+        <Property name="text" type="java.lang.String" value="Enviar queja/sugerencia"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnviarQuejaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="txtTelefono">
+      <Properties>
+        <Property name="columns" type="int" value="12"/>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+          <Format format="(###)-###-####" subtype="-1" type="5"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="(   )-   -    "/>
+        <Property name="toolTipText" type="java.lang.String" value="0000000000"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSugerencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="*No necesitas introducir tu nombre, tu queja puede ser an&#xf3;nima."/>
       </Properties>
     </Component>
   </SubComponents>
