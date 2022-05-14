@@ -6,10 +6,9 @@ package formularios;
 
 import entidades.Guia;
 import entidades.Itinerario;
-import factory.FabricaDatos;
 import interfaces.IDatos;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,8 +50,9 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         lblTelefono = new javax.swing.JLabel();
-        txtTelefono = new javax.swing.JTextField();
         btnEnviarQueja = new javax.swing.JButton();
+        txtTelefono = new javax.swing.JFormattedTextField();
+        lblSugerencia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +68,12 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         txtQueja.setRows(5);
         jScrollPane1.setViewportView(txtQueja);
 
+        txtVisitante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtVisitanteKeyTyped(evt);
+            }
+        });
+
         lblGuia.setText("Guía");
 
         txtGuia.setEditable(false);
@@ -78,7 +84,23 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
         lblTelefono.setText("Teléfono");
 
-        btnEnviarQueja.setText("Enviar queja");
+        btnEnviarQueja.setText("Enviar queja/sugerencia");
+        btnEnviarQueja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarQuejaActionPerformed(evt);
+            }
+        });
+
+        txtTelefono.setColumns(12);
+        try {
+            txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(###)-###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtTelefono.setText("(   )-   -    ");
+        txtTelefono.setToolTipText("0000000000");
+
+        lblSugerencia.setText("*No necesitas introducir tu nombre, tu queja puede ser anónima.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,37 +109,42 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblItinerario)
-                                .addComponent(lblGuia)
-                                .addComponent(lblHoras)
-                                .addComponent(lblFechas)
-                                .addComponent(lblQueja))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
-                                .addComponent(lblEmail))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblItinerario)
+                                        .addComponent(lblGuia)
+                                        .addComponent(lblHoras)
+                                        .addComponent(lblFechas)
+                                        .addComponent(lblQueja))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addComponent(lblEmail))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblVisitante, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblTelefono, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblVisitante, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTelefono, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTelefono)
-                    .addComponent(txtVisitante)
-                    .addComponent(cajaCombinadaHoras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtGuia, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cajaCombinadaFechas, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cajaCombinadaItinerarios, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                    .addComponent(txtEmail))
+                            .addComponent(txtVisitante)
+                            .addComponent(cajaCombinadaHoras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtGuia, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cajaCombinadaFechas, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cajaCombinadaItinerarios, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
+                            .addComponent(txtEmail)
+                            .addComponent(txtTelefono)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(77, Short.MAX_VALUE)
+                        .addComponent(lblSugerencia)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(170, 170, 170)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnEnviarQueja)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(131, 131, 131))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,15 +174,17 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblTelefono)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblVisitante)
                     .addComponent(txtVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSugerencia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(btnEnviarQueja)
                 .addGap(26, 26, 26))
         );
@@ -163,34 +192,99 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEnviarQuejaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarQuejaActionPerformed
+        if (cajaCombinadaItinerarios.getSelectedIndex() == -1) {
+            this.mostrarMensajeError("Por favor, seleccione un itinerario.");
+            return;
+        }
+
+        if (cajaCombinadaFechas.getSelectedIndex() == -1) {
+            this.mostrarMensajeError("Por favor, seleccione una fecha.");
+            return;
+        }
+
+        if (cajaCombinadaHoras.getSelectedIndex() == -1) {
+            this.mostrarMensajeError("Por favor, seleccione una hora.");
+            return;
+        }
+
+        if (txtQueja.getText().isBlank()) {
+            this.mostrarMensajeError("Por favor, escriba su queja o sugerencia.");
+            return;
+        }
+
+        if (txtEmail.getText().isBlank()) {
+            this.mostrarMensajeError("Por favor, introduzca su email.");
+            return;
+        }
+
+        if (txtTelefono.getText().isBlank()) {
+            this.mostrarMensajeError("Por favor, introduzca su número telefónico.");
+            return;
+        }
+
+        if (validarEmail(txtEmail.getText())) {
+            return;
+        } else {
+            this.mostrarMensajeError("Formato de email inválido.");
+        }
+
+    }//GEN-LAST:event_btnEnviarQuejaActionPerformed
+
+    /**
+     * Método que valida cadenas de texto para ver si son emails
+     *
+     * @param email La cadena de texto a validar
+     * @return Verdadero si la cadena de texto tiene formato de email, falso si
+     * está en blanco o no tiene formato de email.
+     */
+    private boolean validarEmail(String email) {
+        if (email == null || email.isBlank()) {
+            return false;
+        }
+
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        Pattern pattern = Pattern.compile(emailRegex);
+
+        if (pattern.matcher(email).matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Método que valida que solo se introduzcan caracteres alfabéticos en el
+     * campo de nombre
+     *
+     * @param evt El evento que se crea cuando se introduce un caracter.
+     */
+    private void txtVisitanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVisitanteKeyTyped
+        char c = evt.getKeyChar();
+
+        if (Character.isSpaceChar(c)) {
+            return;
+        }
+
+        if (!Character.isAlphabetic(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtVisitanteKeyTyped
+
     private void cargarCajas() {
 
         IDatos datos = factory.FabricaDatos.crearFDatos();
-//        List listaGuias = datos.consultarGuias();
+
         List listaItinerarios = datos.consultarGuias();
 
-        /*        try {
-        for (int i = 0; i < listaGuias.size(); i++) {
-        Guia guia = (Guia) listaGuias.get(i);
-        cajaCombinadaGuias.addItem(guia);
-        }
-        } catch (Exception ex) {
-        
-        this.mostrarMensajeError("Hubo un error al cargar los guías");
-        
-        }*/
-
         try {
-
             for (int i = 0; i < listaItinerarios.size(); i++) {
                 Itinerario itinerario = (Itinerario) listaItinerarios.get(i);
                 cajaCombinadaItinerarios.addItem(itinerario);
             }
-
         } catch (Exception ex) {
-
             this.mostrarMensajeError("Hubo un error al cargar los itinerarios");
-
         }
 
     }
@@ -215,12 +309,13 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
     private javax.swing.JLabel lblHoras;
     private javax.swing.JLabel lblItinerario;
     private javax.swing.JLabel lblQueja;
+    private javax.swing.JLabel lblSugerencia;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblVisitante;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtGuia;
     private javax.swing.JTextArea txtQueja;
-    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JFormattedTextField txtTelefono;
     private javax.swing.JTextField txtVisitante;
     // End of variables declaration//GEN-END:variables
 }
