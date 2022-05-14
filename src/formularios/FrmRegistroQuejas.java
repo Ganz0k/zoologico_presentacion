@@ -22,7 +22,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
      */
     public FrmRegistroQuejas() {
         initComponents();
-        this.cargarCajas();
+        this.cargarCajaItinerarios();
     }
 
     /**
@@ -272,11 +272,12 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtVisitanteKeyTyped
 
-    private void cargarCajas() {
+    
+    private void cargarCajaItinerarios() {
 
         IDatos datos = factory.FabricaDatos.crearFDatos();
 
-        List listaItinerarios = datos.consultarGuias();
+        List listaItinerarios = datos.consultarItinerarios();
 
         try {
             for (int i = 0; i < listaItinerarios.size(); i++) {
