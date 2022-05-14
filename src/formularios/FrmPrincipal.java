@@ -151,7 +151,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.campoTextoNombre.setEditable(false);
         this.campoTextoNombreCientifico.setEditable(false);
         this.campoTextoDescripcion.setEditable(false);
-        this.btnGuardarEspecie.setEnabled(false);
+        this.btnGuardarEspecie.setEnabled(true);
+        this.btnGuardarEspecie.setText("Editar");
     }
 
     /**
