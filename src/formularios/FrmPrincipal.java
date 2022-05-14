@@ -96,7 +96,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      * Manda a llamar el método verificarNombreEspecie de la interfaz INegocio
      */
     private void clickBtnVerificarNombreEspecie() {
-        if(this.campoTextoNombre.getText().isEmpty()){
+        if (this.campoTextoNombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "El campo nombre está vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -219,8 +219,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "La especie se ha guardado exitosamente, su ID es el siguiente: " + especie.getId(), "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
-        /**
-     * 
+    /**
+     *
      */
     private void clickBtnRegistrarActualizarItinerario() {
         if (frmItinerario != null) {
@@ -234,7 +234,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             });
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -260,6 +260,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         cajaCombinadaHabitats = new javax.swing.JComboBox<>();
         cajaCombinadaCuidadores = new javax.swing.JComboBox<>();
         btnEditarAnimales = new javax.swing.JButton();
+        btnQuejas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú Principal");
@@ -317,6 +318,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnQuejas.setText("Quejas/Sugerencias");
+        btnQuejas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuejasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -345,24 +353,30 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(btnVerificarNombreEspecie))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnRegistrarHabitat)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnRegistrarActualizarEspecie, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRegistrarHabitat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(68, 68, 68)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnQuejas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnRegistrarActualizarItinerarios)
-                                .addComponent(btnRegistrarActualizarEspecie, javax.swing.GroupLayout.Alignment.TRAILING)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnRegistrarHabitat)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrarHabitat)
+                    .addComponent(btnQuejas))
                 .addGap(18, 18, 18)
-                .addComponent(btnRegistrarActualizarEspecie)
-                .addGap(18, 18, 18)
-                .addComponent(btnRegistrarActualizarItinerarios)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrarActualizarEspecie)
+                    .addComponent(btnRegistrarActualizarItinerarios))
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
                     .addComponent(campoTextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -472,6 +486,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.clickBtnRegistrarActualizarItinerario();
     }//GEN-LAST:event_btnRegistrarActualizarItinerariosActionPerformed
 
+    private void btnQuejasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuejasActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                frmQuejas = new FrmRegistroQuejas();
+                frmQuejas.setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnQuejasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -510,6 +533,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditarAnimales;
     private javax.swing.JButton btnGuardarEspecie;
+    private javax.swing.JButton btnQuejas;
     private javax.swing.JButton btnRegistrarActualizarEspecie;
     private javax.swing.JButton btnRegistrarActualizarItinerarios;
     private javax.swing.JButton btnRegistrarHabitat;
@@ -528,6 +552,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public static FrmRegistroHabitat frmHabitat;
     public static FrmEditarAnimal frmAnimal;
     public static FrmRegistroItinerario frmItinerario;
+    public static FrmRegistroQuejas frmQuejas;
     private INegocio negocio;
     private List<Habitat> listaHabitats;
     private List<Cuidador> listaCuidadores;

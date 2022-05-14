@@ -4,6 +4,14 @@
  */
 package formularios;
 
+import entidades.Guia;
+import entidades.Itinerario;
+import factory.FabricaDatos;
+import interfaces.IDatos;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author julio
@@ -15,6 +23,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
      */
     public FrmRegistroQuejas() {
         initComponents();
+        this.cargarCajas();
     }
 
     /**
@@ -28,12 +37,22 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
         lblVisitante = new javax.swing.JLabel();
         lblItinerario = new javax.swing.JLabel();
-        cajaCombinadaVisitantes = new javax.swing.JComboBox<>();
         cajaCombinadaItinerarios = new javax.swing.JComboBox<>();
         lblQueja = new javax.swing.JLabel();
-        txtQueja = new javax.swing.JTextField();
-        cajaCombinadaItinerarios1 = new javax.swing.JComboBox<>();
-        lblGuía = new javax.swing.JLabel();
+        lblFechas = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtQueja = new javax.swing.JTextArea();
+        cajaCombinadaFechas = new javax.swing.JComboBox<>();
+        txtVisitante = new javax.swing.JTextField();
+        lblGuia = new javax.swing.JLabel();
+        txtGuia = new javax.swing.JTextField();
+        lblHoras = new javax.swing.JLabel();
+        cajaCombinadaHoras = new javax.swing.JComboBox<>();
+        lblEmail = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblTelefono = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        btnEnviarQueja = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,69 +60,167 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
         lblItinerario.setText("Itinerario");
 
-        lblQueja.setText("Queja:");
+        lblQueja.setText("Queja");
 
-        lblGuía.setText("Guía");
+        lblFechas.setText("Fechas");
+
+        txtQueja.setColumns(20);
+        txtQueja.setRows(5);
+        jScrollPane1.setViewportView(txtQueja);
+
+        lblGuia.setText("Guía");
+
+        txtGuia.setEditable(false);
+
+        lblHoras.setText("Horas");
+
+        lblEmail.setText("E-mail");
+
+        lblTelefono.setText("Teléfono");
+
+        btnEnviarQueja.setText("Enviar queja");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblGuía)
-                        .addGap(40, 40, 40)
-                        .addComponent(cajaCombinadaItinerarios1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblQueja)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(txtQueja, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblVisitante)
-                        .addGap(18, 18, 18)
-                        .addComponent(cajaCombinadaVisitantes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblItinerario)
-                        .addGap(18, 18, 18)
-                        .addComponent(cajaCombinadaItinerarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblItinerario)
+                                .addComponent(lblGuia)
+                                .addComponent(lblHoras)
+                                .addComponent(lblFechas)
+                                .addComponent(lblQueja))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(lblEmail))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblVisitante, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblTelefono, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTelefono)
+                    .addComponent(txtVisitante)
+                    .addComponent(cajaCombinadaHoras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtGuia, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cajaCombinadaFechas, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cajaCombinadaItinerarios, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                    .addComponent(txtEmail))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(170, 170, 170)
+                .addComponent(btnEnviarQueja)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblItinerario)
+                            .addComponent(cajaCombinadaItinerarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addComponent(lblFechas))
+                    .addComponent(cajaCombinadaFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblVisitante)
-                    .addComponent(cajaCombinadaVisitantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblHoras)
+                    .addComponent(cajaCombinadaHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblItinerario)
-                    .addComponent(cajaCombinadaItinerarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGuía)
-                    .addComponent(cajaCombinadaItinerarios1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtGuia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblGuia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblQueja)
-                    .addComponent(txtQueja, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblQueja))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmail)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTelefono)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblVisitante)
+                    .addComponent(txtVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(btnEnviarQueja)
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cargarCajas() {
+
+        IDatos datos = factory.FabricaDatos.crearFDatos();
+//        List listaGuias = datos.consultarGuias();
+        List listaItinerarios = datos.consultarGuias();
+
+        /*        try {
+        for (int i = 0; i < listaGuias.size(); i++) {
+        Guia guia = (Guia) listaGuias.get(i);
+        cajaCombinadaGuias.addItem(guia);
+        }
+        } catch (Exception ex) {
+        
+        this.mostrarMensajeError("Hubo un error al cargar los guías");
+        
+        }*/
+
+        try {
+
+            for (int i = 0; i < listaItinerarios.size(); i++) {
+                Itinerario itinerario = (Itinerario) listaItinerarios.get(i);
+                cajaCombinadaItinerarios.addItem(itinerario);
+            }
+
+        } catch (Exception ex) {
+
+            this.mostrarMensajeError("Hubo un error al cargar los itinerarios");
+
+        }
+
+    }
+
+    /**
+     * Muestra mensaje de error al activar las comboBoxes y llenar la tabla de
+     * continentes disponibles
+     */
+    private void mostrarMensajeError(String error) {
+        JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cajaCombinadaItinerarios;
-    private javax.swing.JComboBox<String> cajaCombinadaItinerarios1;
-    private javax.swing.JComboBox<String> cajaCombinadaVisitantes;
-    private javax.swing.JLabel lblGuía;
+    private javax.swing.JButton btnEnviarQueja;
+    private javax.swing.JComboBox<Guia> cajaCombinadaFechas;
+    private javax.swing.JComboBox<String> cajaCombinadaHoras;
+    private javax.swing.JComboBox<Itinerario> cajaCombinadaItinerarios;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblFechas;
+    private javax.swing.JLabel lblGuia;
+    private javax.swing.JLabel lblHoras;
     private javax.swing.JLabel lblItinerario;
     private javax.swing.JLabel lblQueja;
+    private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblVisitante;
-    private javax.swing.JTextField txtQueja;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtGuia;
+    private javax.swing.JTextArea txtQueja;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtVisitante;
     // End of variables declaration//GEN-END:variables
 }
