@@ -205,6 +205,11 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que verifica campos y guarda la queja
+     *
+     * @param evt El evento que describe la pulsación del botón
+     */
     private void btnEnviarQuejaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarQuejaActionPerformed
         if (cajaCombinadaItinerarios.getSelectedIndex() == -1) {
             this.mostrarMensajeError("Por favor, seleccione un itinerario.");
