@@ -6,7 +6,10 @@ package formularios;
 
 import entidades.Guia;
 import entidades.Itinerario;
+import entidades.Queja;
+import factory.FabricaNegocios;
 import interfaces.IDatos;
+import interfaces.INegocio;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -24,6 +27,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         initComponents();
         this.cargarCajaItinerarios();
         cajaCombinadaItinerarios.setSelectedIndex(NINGUNO);
+        this.negocio = FabricaNegocios.crearFNegocio();
     }
 
     /**
@@ -76,6 +80,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         txtQueja.setRows(5);
         jScrollPane1.setViewportView(txtQueja);
 
+        txtVisitante.setText(" ");
         txtVisitante.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtVisitanteKeyTyped(evt);
@@ -236,6 +241,10 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
             this.mostrarMensajeError("Formato de email inválido.");
         }
 
+        Itinerario itinerario = (Itinerario) cajaCombinadaItinerarios.getSelectedItem();
+        Guia guia = itinerario.ge
+        Queja queja = new Queja(txtQueja, txtVisitante, itinerario, guia)
+        
     }//GEN-LAST:event_btnEnviarQuejaActionPerformed
 
     /**
@@ -280,12 +289,10 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtVisitanteKeyTyped
 
     private void cajaCombinadaItinerariosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cajaCombinadaItinerariosItemStateChanged
-       
-         
-        
+
+
     }//GEN-LAST:event_cajaCombinadaItinerariosItemStateChanged
 
-    
     private void cargarCajaItinerarios() {
 
         IDatos datos = factory.FabricaDatos.crearFDatos();
@@ -312,7 +319,8 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
     }
 
     private final short NINGUNO = -1;
-    
+    private final INegocio negocio;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviarQueja;
     private javax.swing.JComboBox<Guia> cajaCombinadaFechas;
