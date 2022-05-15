@@ -113,6 +113,8 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
         lblSugerencia.setText("*No necesitas introducir tu nombre, tu queja puede ser anónima.");
 
+        txtHora.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -324,6 +326,10 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         itinerario = (Itinerario) cajaCombinadaItinerarios.getSelectedItem();
 
         if (cajaCombinadaItinerarios.getSelectedItem() == null) {
+            return;
+        }
+
+        if (!txtGuia.getText().isBlank()) {
             return;
         }
 
