@@ -242,6 +242,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         if (validarEmail(txtEmail.getText())) {
         } else {
             this.mostrarMensajeError("Formato de email inválido.");
+            return;
         }
 
         Itinerario itinerario = (Itinerario) cajaCombinadaItinerarios.getSelectedItem();
@@ -333,12 +334,16 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         if (!txtGuia.getText().isBlank()) {
             return;
         }
+        
 
         List<Dia> dias = itinerario.getDiasRecorrido();
         try {
-            for (int i = 0; i < dias.size(); i++) {
-                Dia dia = (Dia) dias.get(i);
-                cajaCombinadaDias.addItem(dia);
+            if (!txtGuia.getText().isBlank()) {
+                for (int i = 0; i < dias.size(); i++) {
+                    Dia dia = (Dia) dias.get(i);
+                    cajaCombinadaDias.addItem(dia);
+                }
+                return;
             }
         } catch (Exception ex) {
             this.mostrarMensajeError("Hubo un error al cargar los días");

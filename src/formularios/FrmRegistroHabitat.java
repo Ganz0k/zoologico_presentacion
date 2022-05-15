@@ -353,8 +353,9 @@ public class FrmRegistroHabitat extends javax.swing.JFrame {
         btnEliminarContinente = new javax.swing.JButton();
         cajaCombinadaClima = new javax.swing.JComboBox<>();
         cajaCombinadaVegetacion = new javax.swing.JComboBox<>();
+        btnRegresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Registro de Hábitats");
 
         lblNombre.setText("Nombre");
@@ -441,27 +442,39 @@ public class FrmRegistroHabitat extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblVegetacion)
-                            .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblClima, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoTextoNombre)
-                            .addComponent(cajaCombinadaClima, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cajaCombinadaVegetacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblVegetacion)
+                                    .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblClima, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campoTextoNombre)
+                                    .addComponent(cajaCombinadaClima, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cajaCombinadaVegetacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardarHabitat)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                                .addComponent(btnVerificarNombreHabitat))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardarHabitat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(btnVerificarNombreHabitat)))
+                        .addGap(103, 103, 103)
+                        .addComponent(btnRegresar)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelTablaContinentesSeleccionados, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
@@ -475,7 +488,7 @@ public class FrmRegistroHabitat extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -506,7 +519,9 @@ public class FrmRegistroHabitat extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnVerificarNombreHabitat)
-                            .addComponent(btnGuardarHabitat))))
+                            .addComponent(btnGuardarHabitat))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegresar)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -550,10 +565,16 @@ public class FrmRegistroHabitat extends javax.swing.JFrame {
         this.clickBtnEliminarContinente();
     }//GEN-LAST:event_btnEliminarContinenteActionPerformed
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        this.dispose();
+        FrmPrincipal.frmHabitat = null;
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarContinente;
     private javax.swing.JButton btnEliminarContinente;
     private javax.swing.JButton btnGuardarHabitat;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnVerificarNombreHabitat;
     private javax.swing.JComboBox<String> cajaCombinadaClima;
     private javax.swing.JComboBox<String> cajaCombinadaVegetacion;
