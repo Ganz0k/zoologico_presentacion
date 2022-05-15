@@ -103,6 +103,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         campoTextoNumEspecies = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Registrar itinerario");
 
         tablaZonas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
