@@ -100,6 +100,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El campo nombre está vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        if(this.campoTextoNombre.getText().length() > 100){
+            JOptionPane.showMessageDialog(this, "El nombre es muy largo, no debe de tener más de 100 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         String nombre = this.campoTextoNombre.getText();
         Especie especie = this.negocio.consultarEspecie(nombre);
         if (especie == null) {
@@ -161,6 +166,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void clickBtnGuardarEspecie() {
         if (this.campoTextoNombre.getText().isEmpty() || this.campoTextoNombreCientifico.getText().isEmpty() || this.campoTextoDescripcion.getText().isEmpty() || this.cajaCombinadaCuidadores.getSelectedItem() == null || this.cajaCombinadaHabitats.getSelectedItem() == null) {
             this.mostrarMensajeCamposVacios();
+            return;
+        }
+        if(this.campoTextoNombreCientifico.getText().length() > 100){
+            JOptionPane.showMessageDialog(this, "El nombre científico es muy largo, no debe de tener más de 100 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(this.campoTextoDescripcion.getText().length() > 200){
+            JOptionPane.showMessageDialog(this, "La descripción es muy larga, no debe de tener más de 200 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
         String nombre = this.campoTextoNombre.getText();

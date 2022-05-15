@@ -181,7 +181,7 @@ public class FrmRegistroHabitat extends javax.swing.JFrame {
             return;
         }
         if(this.campoTextoNombre.getText().length() > 100){
-            JOptionPane.showMessageDialog(this, "El campo nombre está muy largo", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El campo nombre está muy largo, no debe de tener más de 100 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
