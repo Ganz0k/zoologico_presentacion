@@ -16,7 +16,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import org.bson.types.ObjectId;
 
 /**
@@ -27,6 +29,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmRegistroItinerario
+     *
      * @param negocio
      */
     public FrmRegistroItinerario(INegocio negocio) {
@@ -54,12 +57,12 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.recuperarZonas();
 
         if (listaGuias.isEmpty()) {
-            monstrarAdvertenciaListaGuias();
+            mostrarAdvertenciaListaGuias();
             deshabilitarCampos();
         }
 
         if (listaZonas.isEmpty()) {
-            monstrarAdvertenciaListaZonas();
+            mostrarAdvertenciaListaZonas();
             deshabilitarCampos();
         }
 
@@ -229,9 +232,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addGap(17, 17, 17)
                         .addComponent(lblEspecies)
-                        .addGap(1, 1, 1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoTextoNumEspecies))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
@@ -252,7 +255,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -283,11 +286,11 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblGuia)
                             .addComponent(cajaCombinadaGuias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(campoTextoNumEspecies, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEspecies))
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardarItinerario)
                             .addComponent(btnRegresar)))
@@ -351,23 +354,36 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         if (itinerario == null) {
 
             int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea confirmar el registro del Itinerario?", "Confirmar registro de Itinerario", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            
-            if (respuesta != 0){
+
+            if (respuesta != 0) {
                 return;
             }
-            
+
             itinerario = new Itinerario(new ObjectId(), this.campoTextoNombre.getText(), Integer.parseInt(this.campoTextoDuracion.getText()),
                     Double.parseDouble(this.campoTextoLongitud.getText()), Integer.parseInt(this.campoTextoVisitantes.getText()), this.listaZonasSeleccionadas, this.listaDiasHoras);
 
             Guia guiaRegistro = (Guia) this.cajaCombinadaGuias.getSelectedItem();
-            
+
             this.negocio.guardarItinerario(itinerario);
             this.negocio.agregarItinerario(guiaRegistro.getId(), itinerario);
             this.muestraMensajeExitoso();
+            this.limpiarCampos();
         } else {
             this.mostrarMensajeItinerarioExistente();
+            this.mostrarDatosItinerario(itinerario);
         }
     }//GEN-LAST:event_btnGuardarItinerarioActionPerformed
+
+    private void limpiarCampos() {
+        this.campoTextoDuracion.setText("");
+        this.campoTextoLongitud.setText("");
+        this.campoTextoVisitantes.setText("");
+        this.campoTextoNumEspecies.setText("");
+        this.recuperarGuias();
+        this.recuperarZonas();
+        this.llenarListaZonas();
+        this.llenarListaDias();
+    }
 
     private void mostrarMensajeItinerarioExistente() {
         JOptionPane.showMessageDialog(this, "El nombre de itinerario dado ya está registrado", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -521,24 +537,29 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.campoTextoVisitantes.setEditable(false);
         this.lblGuia.setVisible(true);
         this.cajaCombinadaGuias.setEnabled(false);
-        this.lblEspecies.setVisible(false);
-        this.campoTextoNumEspecies.setVisible(false);
+        this.lblEspecies.setVisible(true);
+        this.campoTextoNumEspecies.setVisible(true);
         this.btnGuardarItinerario.setEnabled(false);
         this.tablaZonas.setEnabled(false);
         this.tablaDiasSemana.setEnabled(false);
+
     }
 
     private void mostrarCamposConsulta() {
-        JOptionPane.showMessageDialog(this, "El itinerario dado ya se encuentra registrado, se mostrará a continuación", "Información", JOptionPane.INFORMATION_MESSAGE);
-        this.lblEspecies.setVisible(true);
-        this.campoTextoNumEspecies.setVisible(true);
-        this.tablaZonas.setEnabled(false);
-        this.tablaDiasSemana.setEnabled(false);
+        this.deshabilitarCampos();
+        this.lblZonas.setText("Zonas del itinerario:");
+        this.lblDias.setText("Días del itinerario:");
     }
 
     private void llenarListaZonas() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaZonas.getModel();
         modeloTabla.setRowCount(0);
+
+        JTableHeader titulo = tablaZonas.getTableHeader();
+        TableColumnModel colMod = titulo.getColumnModel();
+        TableColumn tabCol = colMod.getColumn(2);
+        tabCol.setHeaderValue("Seleccionar");
+
         listaZonas.forEach(zona -> {
             Object[] fila = new Object[3];
             fila[0] = zona.getNombre();
@@ -567,6 +588,12 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         listaDias.add(new Dia("Domingo"));
 
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaDiasSemana.getModel();
+
+        JTableHeader titulo = tablaDiasSemana.getTableHeader();
+        TableColumnModel colMod = titulo.getColumnModel();
+        TableColumn tabCol = colMod.getColumn(1);
+        tabCol.setHeaderValue("Seleccionar");
+
         modeloTabla.setRowCount(0);
         listaDias.forEach(dia -> {
             Object[] fila = new Object[2];
@@ -591,6 +618,10 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
             this.lblEspecies.setVisible(false);
             this.campoTextoNumEspecies.setVisible(false);
             this.btnGuardarItinerario.setEnabled(true);
+
+            this.lblZonas.setText("Zonas disponibles:");
+            this.lblDias.setText("Días de la semana:");
+            this.limpiarCampos();
             this.mostrarCajasVerificacionZonas();
         } else {
             JOptionPane.showMessageDialog(this, "Se necesitan guías y zonas registrados habilitar el registro de itinerario", "Error", JOptionPane.ERROR_MESSAGE);
@@ -629,10 +660,77 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         Itinerario itinerario = this.negocio.verificarNombreItinerario(nombre);
         if (itinerario == null) {
             this.activarCamposEntrada();
+            this.llenarComboGuias();
         } else {
-            this.mostrarCamposConsulta();
-            this.llenarCamposItinerario(itinerario);
+            this.mostrarMensajeItinerarioExistente();
+            this.mostrarDatosItinerario(itinerario);
         }
+    }
+
+    private void mostrarDatosItinerario(Itinerario itinerario) {
+  
+        this.mostrarCamposConsulta();
+        this.llenarCamposItinerario(itinerario);
+        this.llenarTablaDiasConsulta(itinerario);
+        this.llenarTablaZonasConsulta(itinerario);
+        this.mostrarGuia(itinerario);
+    }
+
+    private void mostrarGuia(Itinerario itinerario) {
+        DefaultComboBoxModel modeloGuias = new DefaultComboBoxModel();
+        Guia guia = this.negocio.consultarGuia(itinerario.getId());
+
+        if (guia == null) {
+            JOptionPane.showMessageDialog(this, "No se pudo recuperar el guía del itinerario", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        modeloGuias.addElement(guia);
+        cajaCombinadaGuias.setModel(modeloGuias);
+    }
+
+    private void quitarCheckBox(int columna, JTable table) {
+        TableColumn tc = table.getColumnModel().getColumn(columna);
+        tc.setCellEditor(table.getDefaultEditor(String.class));
+        tc.setCellRenderer(table.getDefaultRenderer(String.class));
+    }
+
+    private void llenarTablaDiasConsulta(Itinerario itinerario) {
+
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaDiasSemana.getModel();
+        modeloTabla.setRowCount(0);
+
+        this.quitarCheckBox(1, tablaDiasSemana);
+
+        JTableHeader titulo = tablaDiasSemana.getTableHeader();
+        TableColumnModel colMod = titulo.getColumnModel();
+        TableColumn tabCol = colMod.getColumn(1);
+        tabCol.setHeaderValue("Hora");
+
+        itinerario.getDiasRecorrido().forEach(dia -> {
+            Object[] fila = new Object[2];
+            fila[0] = dia.getDescripcion();
+            fila[1] = dia.getHora();
+            modeloTabla.addRow(fila);
+        });
+    }
+
+    private void llenarTablaZonasConsulta(Itinerario itinerario) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaZonas.getModel();
+        modeloTabla.setRowCount(0);
+
+        JTableHeader titulo = tablaZonas.getTableHeader();
+        TableColumnModel colMod = titulo.getColumnModel();
+        TableColumn tabCol = colMod.getColumn(2);
+        tabCol.setHeaderValue("Seleccionado");
+
+        itinerario.getZonasRecorridas().forEach(zona -> {
+            Object[] fila = new Object[3];
+            fila[0] = zona.getNombre();
+            fila[1] = zona.getExtension();
+            fila[2] = true;
+            modeloTabla.addRow(fila);
+        });
     }
 
     /**
@@ -649,11 +747,11 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Hubo un error al recuperar los guías", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private void monstrarAdvertenciaListaZonas() {
+    private void mostrarAdvertenciaListaZonas() {
         JOptionPane.showMessageDialog(this, "No existen zonas registradas", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private void monstrarAdvertenciaListaGuias() {
+    private void mostrarAdvertenciaListaGuias() {
         JOptionPane.showMessageDialog(this, "No existen guías registrados", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
@@ -688,7 +786,10 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
     }
 
     private void llenarCamposItinerario(Itinerario itinerario) {
-
+        this.campoTextoDuracion.setText(String.valueOf(itinerario.getDuracionRecorrido()));
+        this.campoTextoLongitud.setText(String.valueOf(itinerario.getLongitud()));
+        this.campoTextoVisitantes.setText(String.valueOf(itinerario.getMaximoVisitantes()));
+        this.campoTextoNumEspecies.setText(String.valueOf(itinerario.getNumEspecies()));
     }
 
     private INegocio negocio;
