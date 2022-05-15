@@ -57,12 +57,12 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.recuperarZonas();
 
         if (listaGuias.isEmpty()) {
-            monstrarAdvertenciaListaGuias();
+            mostrarAdvertenciaListaGuias();
             deshabilitarCampos();
         }
 
         if (listaZonas.isEmpty()) {
-            monstrarAdvertenciaListaZonas();
+            mostrarAdvertenciaListaZonas();
             deshabilitarCampos();
         }
 
@@ -662,11 +662,13 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
             this.activarCamposEntrada();
             this.llenarComboGuias();
         } else {
+            this.mostrarMensajeItinerarioExistente();
             this.mostrarDatosItinerario(itinerario);
         }
     }
 
     private void mostrarDatosItinerario(Itinerario itinerario) {
+  
         this.mostrarCamposConsulta();
         this.llenarCamposItinerario(itinerario);
         this.llenarTablaDiasConsulta(itinerario);
@@ -745,11 +747,11 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Hubo un error al recuperar los guías", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private void monstrarAdvertenciaListaZonas() {
+    private void mostrarAdvertenciaListaZonas() {
         JOptionPane.showMessageDialog(this, "No existen zonas registradas", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private void monstrarAdvertenciaListaGuias() {
+    private void mostrarAdvertenciaListaGuias() {
         JOptionPane.showMessageDialog(this, "No existen guías registrados", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
