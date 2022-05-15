@@ -6,7 +6,6 @@ package formularios;
 
 import entidades.Dia;
 import entidades.Guia;
-import entidades.Habitat;
 import entidades.Itinerario;
 import entidades.Zona;
 import interfaces.INegocio;
@@ -28,6 +27,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmRegistroItinerario
+     * @param negocio
      */
     public FrmRegistroItinerario(INegocio negocio) {
         this.negocio = negocio;
@@ -199,7 +199,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
 
         lblGuia.setText("Guía:");
 
-        lblEspecies.setText("Numero de especies: ");
+        lblEspecies.setText("Número de especies: ");
 
         campoTextoNumEspecies.setEditable(false);
 
@@ -325,13 +325,13 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.llenarListaDiasHoras();
 
         if (this.listaDiasHoras.size() < 1) {
-            JOptionPane.showMessageDialog(this, "Necesitas seleccionar al menos un dia", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Necesitas seleccionar al menos un día", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         Guia guia = (Guia) this.cajaCombinadaGuias.getSelectedItem();
         if (guia == null) {
-            JOptionPane.showMessageDialog(this, "Hubo un error al obtener el guia seleccionado", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Hubo un error al obtener el guía seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -374,7 +374,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
     }
 
     private void muestraMensajeExitoso() {
-        JOptionPane.showMessageDialog(this, "El itinerario se guardó satifactoriamente", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "El itinerario se guardó satifactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void llenarListaDiasHoras() {
@@ -408,7 +408,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         for (int i = 0; i < listaDiasHoras.size(); i++) {
             hora = JOptionPane.showInputDialog(this, ("Ingresa la hora del itinerario para el día " + listaDiasHoras.get(i).getDescripcion() + " (formato HH:mm de 24 horas): "), "Entrada", JOptionPane.INFORMATION_MESSAGE);
             if (hora == null) {
-                JOptionPane.showMessageDialog(this, "No se puede omitir el registro de hora para alguno de los dias, intente de nuevo", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se puede omitir el registro de hora para alguno de los días, intente de nuevo", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             if (!validarHora(hora)) {
@@ -455,14 +455,14 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         try {
             duracion = Float.parseFloat(this.campoTextoDuracion.getText());
         } catch (NumberFormatException nf) {
-            JOptionPane.showMessageDialog(this, "La duración debe ser una entrada numérico", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La duración debe ser una entrada numérica", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
             longitud = Float.parseFloat(this.campoTextoLongitud.getText());
         } catch (NumberFormatException nf) {
-            JOptionPane.showMessageDialog(this, "La longitud debe ser una entrada numérico", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La longitud debe ser una entrada numérica", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -509,7 +509,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
     }
 
     private void mostrarMensajeErrorCampos() {
-        JOptionPane.showMessageDialog(this, "No pueden existir campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "No pueden existir campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     private void deshabilitarCampos() {
@@ -593,7 +593,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
             this.btnGuardarItinerario.setEnabled(true);
             this.mostrarCajasVerificacionZonas();
         } else {
-            JOptionPane.showMessageDialog(this, "Se necesitan guias y zonas registrados habilitar el registro de itinerario", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se necesitan guías y zonas registrados habilitar el registro de itinerario", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -606,6 +606,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         this.regresarMenu();
+        FrmPrincipal.frmItinerario = null;
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
@@ -645,7 +646,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
      * Muestra un mensaje de error al recuperar guias.
      */
     private void mostrarMensajeErrorGuias() {
-        JOptionPane.showMessageDialog(this, "Hubo un error al recuperar los guias", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Hubo un error al recuperar los guías", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     private void monstrarAdvertenciaListaZonas() {
@@ -653,7 +654,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
     }
 
     private void monstrarAdvertenciaListaGuias() {
-        JOptionPane.showMessageDialog(this, "No existen guias registrados", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "No existen guías registrados", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     private void recuperarGuias() {
