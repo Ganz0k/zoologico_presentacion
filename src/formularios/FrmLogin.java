@@ -85,7 +85,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
+        setTitle("Inicio de sesión");
 
         lblLogin.setText("Ingrese sus datos de usuario");
 
