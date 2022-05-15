@@ -4,12 +4,12 @@
  */
 package formularios;
 
+import entidades.Dia;
 import entidades.Guia;
 import entidades.Itinerario;
 import entidades.Queja;
 import entidades.Visitante;
 import factory.FabricaNegocios;
-import interfaces.IDatos;
 import interfaces.INegocio;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -26,9 +26,8 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
      */
     public FrmRegistroQuejas() {
         initComponents();
-        this.cargarCajaItinerarios();
-        cajaCombinadaItinerarios.setSelectedIndex(NINGUNO);
         this.negocio = FabricaNegocios.crearFNegocio();
+        this.cargarCajaItinerarios();
     }
 
     /**
@@ -47,35 +46,34 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         lblFechas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtQueja = new javax.swing.JTextArea();
-        cajaCombinadaFechas = new javax.swing.JComboBox<>();
+        cajaCombinadaDias = new javax.swing.JComboBox<>();
         txtVisitante = new javax.swing.JTextField();
         lblGuia = new javax.swing.JLabel();
         txtGuia = new javax.swing.JTextField();
         lblHoras = new javax.swing.JLabel();
-        cajaCombinadaHoras = new javax.swing.JComboBox<>();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         lblTelefono = new javax.swing.JLabel();
         btnEnviarQueja = new javax.swing.JButton();
         txtTelefono = new javax.swing.JFormattedTextField();
         lblSugerencia = new javax.swing.JLabel();
+        txtHora = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro Quejas");
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         lblVisitante.setText("Visitante");
 
         lblItinerario.setText("Itinerario");
 
-        cajaCombinadaItinerarios.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cajaCombinadaItinerariosItemStateChanged(evt);
-            }
-        });
-
         lblQueja.setText("Queja");
 
-        lblFechas.setText("Fechas");
+        lblFechas.setText("Días");
 
         txtQueja.setColumns(20);
         txtQueja.setRows(5);
@@ -92,7 +90,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
         txtGuia.setEditable(false);
 
-        lblHoras.setText("Horas");
+        lblHoras.setText("Hora");
 
         lblEmail.setText("E-mail");
 
@@ -143,13 +141,15 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtVisitante)
-                            .addComponent(cajaCombinadaHoras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtGuia, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cajaCombinadaFechas, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cajaCombinadaDias, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cajaCombinadaItinerarios, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1)
                             .addComponent(txtEmail)
-                            .addComponent(txtTelefono)))
+                            .addComponent(txtTelefono)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(77, Short.MAX_VALUE)
                         .addComponent(lblSugerencia)))
@@ -170,11 +170,11 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
                             .addComponent(cajaCombinadaItinerarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addComponent(lblFechas))
-                    .addComponent(cajaCombinadaFechas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cajaCombinadaDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoras)
-                    .addComponent(cajaCombinadaHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtGuia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,7 +197,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
                     .addComponent(txtVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSugerencia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(btnEnviarQueja)
                 .addGap(26, 26, 26))
         );
@@ -216,13 +216,8 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
             return;
         }
 
-        if (cajaCombinadaFechas.getSelectedIndex() == -1) {
+        if (cajaCombinadaDias.getSelectedIndex() == -1) {
             this.mostrarMensajeError("Por favor, seleccione una fecha.");
-            return;
-        }
-
-        if (cajaCombinadaHoras.getSelectedIndex() == -1) {
-            this.mostrarMensajeError("Por favor, seleccione una hora.");
             return;
         }
 
@@ -242,7 +237,6 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         }
 
         if (validarEmail(txtEmail.getText())) {
-            return;
         } else {
             this.mostrarMensajeError("Formato de email inválido.");
         }
@@ -251,7 +245,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
         Guia guia = null;
         try {
-            guia = negocio.consultarGuia(itinerario);
+            guia = negocio.consultarGuia(itinerario.getId());
             txtGuia.setText(guia.getNombre());
         } catch (Exception e) {
             mostrarMensajeError("No se pudo recuperar el guía");
@@ -265,6 +259,8 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
         if (seAgrego) {
             this.mostrarMensajeConfirmacion();
+        } else {
+            this.mostrarMensajeError("No se pudo agregar la queja.");
         }
 
     }//GEN-LAST:event_btnEnviarQuejaActionPerformed
@@ -317,16 +313,49 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtVisitanteKeyTyped
 
-    private void cajaCombinadaItinerariosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cajaCombinadaItinerariosItemStateChanged
+    /**
+     * Método que actualiza los campos según el itinerario seleccionado en
+     * timepo real
+     *
+     * @param evt
+     */
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        Itinerario itinerario;
+        itinerario = (Itinerario) cajaCombinadaItinerarios.getSelectedItem();
 
+        if (cajaCombinadaItinerarios.getSelectedItem() == null) {
+            return;
+        }
 
-    }//GEN-LAST:event_cajaCombinadaItinerariosItemStateChanged
+        List<Dia> dias = itinerario.getDiasRecorrido();
+        try {
+            for (int i = 0; i < dias.size(); i++) {
+                Dia dia = (Dia) dias.get(i);
+                cajaCombinadaDias.addItem(dia);
+            }
+        } catch (Exception ex) {
+            this.mostrarMensajeError("Hubo un error al cargar los días");
+        }
+        try {
+            txtGuia.setText(negocio.consultarGuia(itinerario.getId()).getNombre());
+        } catch (Exception e) {
+            mostrarMensajeError("Error al obtener el guía");
+        }
 
+        try {
+            txtHora.setText(((Dia) cajaCombinadaDias.getSelectedItem()).getHora());
+        } catch (Exception e) {
+            mostrarMensajeError("Por favor, selecciona un día.");
+
+        }
+    }//GEN-LAST:event_formMouseMoved
+
+    /**
+     * Carga la caja de itinerarios
+     */
     private void cargarCajaItinerarios() {
 
-        IDatos datos = factory.FabricaDatos.crearFDatos();
-
-        List listaItinerarios = datos.consultarItinerarios();
+        List listaItinerarios = negocio.consultarItinerarios();
 
         try {
             for (int i = 0; i < listaItinerarios.size(); i++) {
@@ -336,7 +365,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         } catch (Exception ex) {
             this.mostrarMensajeError("Hubo un error al cargar los itinerarios");
         }
-
+        cajaCombinadaItinerarios.setSelectedIndex(NINGUNO);
     }
 
     /**
@@ -348,12 +377,11 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
     }
 
     private final short NINGUNO = -1;
-    private final INegocio negocio;
+    private INegocio negocio;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviarQueja;
-    private javax.swing.JComboBox<Guia> cajaCombinadaFechas;
-    private javax.swing.JComboBox<String> cajaCombinadaHoras;
+    private javax.swing.JComboBox<Dia> cajaCombinadaDias;
     private javax.swing.JComboBox<Itinerario> cajaCombinadaItinerarios;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEmail;
@@ -367,6 +395,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
     private javax.swing.JLabel lblVisitante;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtGuia;
+    private javax.swing.JTextField txtHora;
     private javax.swing.JTextArea txtQueja;
     private javax.swing.JFormattedTextField txtTelefono;
     private javax.swing.JTextField txtVisitante;
