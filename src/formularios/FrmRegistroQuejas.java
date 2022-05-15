@@ -23,6 +23,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
     public FrmRegistroQuejas() {
         initComponents();
         this.cargarCajaItinerarios();
+        cajaCombinadaItinerarios.setSelectedIndex(NINGUNO);
     }
 
     /**
@@ -54,11 +55,18 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JFormattedTextField();
         lblSugerencia = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro Quejas");
 
         lblVisitante.setText("Visitante");
 
         lblItinerario.setText("Itinerario");
+
+        cajaCombinadaItinerarios.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cajaCombinadaItinerariosItemStateChanged(evt);
+            }
+        });
 
         lblQueja.setText("Queja");
 
@@ -97,7 +105,6 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtTelefono.setText("(   )-   -    ");
         txtTelefono.setToolTipText("0000000000");
 
         lblSugerencia.setText("*No necesitas introducir tu nombre, tu queja puede ser anónima.");
@@ -272,6 +279,12 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtVisitanteKeyTyped
 
+    private void cajaCombinadaItinerariosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cajaCombinadaItinerariosItemStateChanged
+       
+         
+        
+    }//GEN-LAST:event_cajaCombinadaItinerariosItemStateChanged
+
     
     private void cargarCajaItinerarios() {
 
@@ -298,6 +311,8 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    private final short NINGUNO = -1;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviarQueja;
     private javax.swing.JComboBox<Guia> cajaCombinadaFechas;
