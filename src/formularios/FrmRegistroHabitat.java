@@ -207,7 +207,7 @@ public class FrmRegistroHabitat extends javax.swing.JFrame {
      * Muestra mensaje de que el hábitat se a agregado exitosamente
      */
     private void mostrarMensajeConfirmacion() {
-        JOptionPane.showMessageDialog(this, "El hábitat se a guardado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "El hábitat se ha guardado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**

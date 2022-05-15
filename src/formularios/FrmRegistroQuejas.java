@@ -7,6 +7,7 @@ package formularios;
 import entidades.Guia;
 import entidades.Itinerario;
 import entidades.Queja;
+import entidades.Visitante;
 import factory.FabricaNegocios;
 import interfaces.IDatos;
 import interfaces.INegocio;
@@ -242,10 +243,33 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         }
 
         Itinerario itinerario = (Itinerario) cajaCombinadaItinerarios.getSelectedItem();
-        Guia guia = itinerario.ge
-        Queja queja = new Queja(txtQueja, txtVisitante, itinerario, guia)
-        
+
+        Guia guia = null;
+        try {
+            guia = negocio.consultarGuia(itinerario);
+            txtGuia.setText(guia.getNombre());
+        } catch (Exception e) {
+            mostrarMensajeError("No se pudo recuperar el guía");
+        }
+
+        Visitante visitante = new Visitante(txtEmail.getText(),
+                txtTelefono.getText(), txtVisitante.getText());
+        Queja queja = new Queja(txtQueja.getText(), visitante, itinerario, guia);
+
+        boolean seAgrego = negocio.guardarQueja(queja);
+
+        if (seAgrego) {
+            this.mostrarMensajeConfirmacion();
+        }
+
     }//GEN-LAST:event_btnEnviarQuejaActionPerformed
+
+    /**
+     * Muestra mensaje de que el hábitat se a agregado exitosamente
+     */
+    private void mostrarMensajeConfirmacion() {
+        JOptionPane.showMessageDialog(this, "La queja se ha guardado exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * Método que valida cadenas de texto para ver si son emails
