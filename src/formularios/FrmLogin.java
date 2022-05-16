@@ -194,6 +194,8 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNoUsuarioActionPerformed
 
     /**
+     * Método main
+     * 
      * @param args the command line arguments
      */
     public static void main(String args[]) {
