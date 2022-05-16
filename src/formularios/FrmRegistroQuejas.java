@@ -58,14 +58,10 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JFormattedTextField();
         lblSugerencia = new javax.swing.JLabel();
         txtHora = new javax.swing.JTextField();
+        btnActualizarCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro Quejas");
-        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                formMouseMoved(evt);
-            }
-        });
 
         lblVisitante.setText("Visitante");
 
@@ -115,6 +111,13 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
         txtHora.setEditable(false);
 
+        btnActualizarCampos.setText("Actualizar campos");
+        btnActualizarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarCamposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,9 +154,10 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
                             .addComponent(txtTelefono)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnActualizarCampos))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(77, Short.MAX_VALUE)
+                        .addContainerGap(73, Short.MAX_VALUE)
                         .addComponent(lblSugerencia)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -176,7 +180,8 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHoras)
-                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizarCampos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtGuia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,7 +239,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
             return;
         }
 
-        if (txtTelefono.getText().isBlank()) {
+        if (txtTelefono.getText().equals("(   )-   -    ")) {
             this.mostrarMensajeError("Por favor, introduzca su número telefónico.");
             return;
         }
@@ -318,12 +323,12 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtVisitanteKeyTyped
 
     /**
-     * Método que actualiza los campos según el itinerario seleccionado en
-     * timepo real
+     * Método que actualiza los campos según el itinerario seleccionado
      *
      * @param evt
      */
-    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+    private void btnActualizarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarCamposActionPerformed
+
         Itinerario itinerario;
         itinerario = (Itinerario) cajaCombinadaItinerarios.getSelectedItem();
 
@@ -331,20 +336,17 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
             return;
         }
 
-        if (!txtGuia.getText().isBlank()) {
-            return;
-        }
-        
-
-        List<Dia> dias = itinerario.getDiasRecorrido();
         try {
-            if (!txtGuia.getText().isBlank()) {
+            List<Dia> dias = itinerario.getDiasRecorrido();
+            if (cajaCombinadaDias.getItemCount() < dias.size()) {
+                cajaCombinadaDias.removeAllItems();
                 for (int i = 0; i < dias.size(); i++) {
+
                     Dia dia = (Dia) dias.get(i);
                     cajaCombinadaDias.addItem(dia);
                 }
-                return;
             }
+
         } catch (Exception ex) {
             this.mostrarMensajeError("Hubo un error al cargar los días");
         }
@@ -357,10 +359,11 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         try {
             txtHora.setText(((Dia) cajaCombinadaDias.getSelectedItem()).getHora());
         } catch (Exception e) {
-            mostrarMensajeError("Por favor, selecciona un día.");
 
         }
-    }//GEN-LAST:event_formMouseMoved
+
+
+    }//GEN-LAST:event_btnActualizarCamposActionPerformed
 
     /**
      * Carga la caja de itinerarios
@@ -372,7 +375,9 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         try {
             for (int i = 0; i < listaItinerarios.size(); i++) {
                 Itinerario itinerario = (Itinerario) listaItinerarios.get(i);
-                cajaCombinadaItinerarios.addItem(itinerario);
+                if (negocio.consultarGuia(itinerario.getId()) != null) {
+                    cajaCombinadaItinerarios.addItem(itinerario);
+                }
             }
         } catch (Exception ex) {
             this.mostrarMensajeError("Hubo un error al cargar los itinerarios");
@@ -392,6 +397,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
     private INegocio negocio;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarCampos;
     private javax.swing.JButton btnEnviarQueja;
     private javax.swing.JComboBox<Dia> cajaCombinadaDias;
     private javax.swing.JComboBox<Itinerario> cajaCombinadaItinerarios;
