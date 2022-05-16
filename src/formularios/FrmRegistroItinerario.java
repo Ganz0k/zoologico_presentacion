@@ -374,6 +374,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarItinerarioActionPerformed
 
+    /**
+     * Limpia los campos del formulario
+     */
     private void limpiarCampos() {
         this.campoTextoDuracion.setText("");
         this.campoTextoLongitud.setText("");
@@ -385,6 +388,10 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.llenarListaDias();
     }
 
+    /**
+     * Muestra un mensaje acerca del nombre del itinerario respecto a uno
+     * existente
+     */
     private void mostrarMensajeItinerarioExistente() {
         JOptionPane.showMessageDialog(this, "El nombre de itinerario dado ya está registrado", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
@@ -393,6 +400,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "El itinerario se guardó satifactoriamente", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Llena la lista de días y horas
+     */
     private void llenarListaDiasHoras() {
         this.listaDiasHoras = new ArrayList<Dia>();
 
@@ -403,6 +413,14 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método que verifica si una casilla está seleccionada
+     *
+     * @param row La fila
+     * @param column La columna
+     * @param table La tabla sobe la que se está trabajando
+     * @return Verdadero si está seleccionada, falso de forma contraria.
+     */
     public boolean isSelected(int row, int column, JTable table) {
 
         if (table.getValueAt(row, column) != null) {
@@ -411,6 +429,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         return false;
     }
 
+    /**
+     * Muestra el cuadro de dialogo para introducir la hora de cada día
+     */
     private void muestraEspacioHoras() {
         this.listoDias = false;
         List<String> horas = new ArrayList<String>();
@@ -441,6 +462,12 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.listoDias = true;
     }
 
+    /**
+     * Valida que la hora tenga el formato especificado
+     *
+     * @param hora La hora en cuestión
+     * @return Verdadero si tiene el formato deseado, falso de forma contraria.
+     */
     private boolean validarHora(String hora) {
         if (hora == null || hora.isBlank()) {
             return false;
@@ -457,6 +484,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Verifica que los campos sean válidos
+     */
     private void verificaCampos() {
         this.estaVerificado = false;
         if (this.campoTextoNombre.getText().isBlank() || this.campoTextoLongitud.getText().isBlank() || this.campoTextoDuracion.getText().isBlank() || this.campoTextoVisitantes.getText().isBlank()) {
@@ -524,10 +554,16 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.estaVerificado = true;
     }
 
+    /**
+     * Muestra mensaje de error de campos vacíos
+     */
     private void mostrarMensajeErrorCampos() {
         JOptionPane.showMessageDialog(this, "No pueden existir campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Deshabilita los campos
+     */
     private void deshabilitarCampos() {
         this.lblDuracion.setVisible(true);
         this.campoTextoDuracion.setEditable(false);
@@ -545,12 +581,18 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Muestra los campos de consulta
+     */
     private void mostrarCamposConsulta() {
         this.deshabilitarCampos();
         this.lblZonas.setText("Zonas del itinerario:");
         this.lblDias.setText("Días del itinerario:");
     }
 
+    /**
+     * Llena la lista de zonas.
+     */
     private void llenarListaZonas() {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaZonas.getModel();
         modeloTabla.setRowCount(0);
@@ -570,12 +612,21 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         agregarCheckBox(2, tablaZonas);
     }
 
+    /**
+     * Agrega las checkboxes a la tabla
+     *
+     * @param columna La columan sobre la que se agregarán
+     * @param table La tabla sobre la que agregarán
+     */
     private void agregarCheckBox(int columna, JTable table) {
         TableColumn tc = table.getColumnModel().getColumn(columna);
         tc.setCellEditor(table.getDefaultEditor(Boolean.class));
         tc.setCellRenderer(table.getDefaultRenderer(Boolean.class));
     }
 
+    /**
+     * Llena la lista de días.
+     */
     private void llenarListaDias() {
 
         this.listaDias = new ArrayList<Dia>();
@@ -604,6 +655,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         agregarCheckBox(1, tablaDiasSemana);
     }
 
+    /**
+     * Activa los campos de entrada.
+     */
     private void activarCamposEntrada() {
         if (!listaZonas.isEmpty() && !listaGuias.isEmpty()) {
             JOptionPane.showMessageDialog(this, "El itinerario no se encuentra registrado, se iniciará registro de uno nuevo", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -628,12 +682,19 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Muestra las cajas de verificación de zonas.
+     */
     private void mostrarCajasVerificacionZonas() {
         this.tablaZonas.setEnabled(true);
         this.tablaDiasSemana.setEnabled(true);
     }
 
-
+    /**
+     * Botón para regresar al menú principal
+     *
+     * @param evt
+     */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         this.regresarMenu();
@@ -650,6 +711,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.clickBtnBuscarItinerarioNombre();
     }//GEN-LAST:event_btnBuscarItinerarioNombreActionPerformed
 
+    /**
+     * Botón buscar itinerario
+     */
     private void clickBtnBuscarItinerarioNombre() {
         if (this.campoTextoNombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Se necesita ingresar un nombre para verificarlo", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -667,8 +731,13 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Muestra los datos de un itinerario
+     *
+     * @param itinerario
+     */
     private void mostrarDatosItinerario(Itinerario itinerario) {
-  
+
         this.mostrarCamposConsulta();
         this.llenarCamposItinerario(itinerario);
         this.llenarTablaDiasConsulta(itinerario);
@@ -676,6 +745,11 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.mostrarGuia(itinerario);
     }
 
+    /**
+     * Muestra el guía del itinerario
+     *
+     * @param itinerario El itinerario en cuestión
+     */
     private void mostrarGuia(Itinerario itinerario) {
         DefaultComboBoxModel modeloGuias = new DefaultComboBoxModel();
         Guia guia = this.negocio.consultarGuia(itinerario.getId());
@@ -689,12 +763,23 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         cajaCombinadaGuias.setModel(modeloGuias);
     }
 
+    /**
+     * Quita una checkbox
+     *
+     * @param columna La columna de la tabla
+     * @param table La tabla en cuestión
+     */
     private void quitarCheckBox(int columna, JTable table) {
         TableColumn tc = table.getColumnModel().getColumn(columna);
         tc.setCellEditor(table.getDefaultEditor(String.class));
         tc.setCellRenderer(table.getDefaultRenderer(String.class));
     }
 
+    /**
+     * Llena la tabla diasSemana
+     *
+     * @param itinerario El itinerario de donde se extraerán los datos.
+     */
     private void llenarTablaDiasConsulta(Itinerario itinerario) {
 
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaDiasSemana.getModel();
@@ -715,6 +800,11 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Llena la tabla zonas
+     *
+     * @param itinerario el itinerario de donde se llenarán
+     */
     private void llenarTablaZonasConsulta(Itinerario itinerario) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaZonas.getModel();
         modeloTabla.setRowCount(0);
@@ -747,14 +837,23 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Hubo un error al recuperar los guías", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Muestra una advertencia de las zonas registradas.
+     */
     private void mostrarAdvertenciaListaZonas() {
         JOptionPane.showMessageDialog(this, "No existen zonas registradas", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Muestra una advertencia sobre los guías
+     */
     private void mostrarAdvertenciaListaGuias() {
         JOptionPane.showMessageDialog(this, "No existen guías registrados", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Obtiene los guías
+     */
     private void recuperarGuias() {
         try {
             this.listaGuias = this.negocio.consultarGuias();
@@ -763,6 +862,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Obtiene las zonas.
+     */
     private void recuperarZonas() {
         try {
             this.listaZonas = this.negocio.consultarZonas();
@@ -771,6 +873,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Llena la comboBox de guías
+     */
     private void llenarComboGuias() {
         List<Guia> listaGuias = this.listaGuias;
         DefaultComboBoxModel modeloGuias = new DefaultComboBoxModel();
@@ -780,11 +885,19 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         cajaCombinadaGuias.setModel(modeloGuias);
     }
 
+    /**
+     * Regresa al menú principal
+     */
     private void regresarMenu() {
         this.dispose();
         FrmPrincipal.frmItinerario = null;
     }
 
+    /**
+     * Llenna los campos del itinerario.
+     *
+     * @param itinerario El itinerario existente.
+     */
     private void llenarCamposItinerario(Itinerario itinerario) {
         this.campoTextoDuracion.setText(String.valueOf(itinerario.getDuracionRecorrido()));
         this.campoTextoLongitud.setText(String.valueOf(itinerario.getLongitud()));
@@ -792,6 +905,9 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.campoTextoNumEspecies.setText(String.valueOf(itinerario.getNumEspecies()));
     }
 
+    /**
+     * Declaración de atributos
+     */
     private INegocio negocio;
     private List<Guia> listaGuias;
     private List<Zona> listaZonas, listaZonasSeleccionadas;
