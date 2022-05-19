@@ -45,6 +45,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.btnVerificarNombreEspecie.setVisible(false);
         this.btnGuardarEspecie.setVisible(false);
         this.btnEditarAnimales.setVisible(false);
+        this.btnRegresar.setVisible(false);
     }
 
     /**
@@ -78,6 +79,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.btnRegistrarHabitat.setVisible(false);
         this.btnRegistrarActualizarEspecie.setVisible(false);
         this.btnRegistrarActualizarItinerarios.setVisible(false);
+        this.btnRegresar.setVisible(true);
     }
 
     /**
@@ -268,6 +270,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         cajaCombinadaHabitats = new javax.swing.JComboBox<>();
         cajaCombinadaCuidadores = new javax.swing.JComboBox<>();
         btnEditarAnimales = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menú Principal");
@@ -325,6 +328,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -351,7 +361,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             .addComponent(cajaCombinadaHabitats, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cajaCombinadaCuidadores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(btnVerificarNombreEspecie))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVerificarNombreEspecie, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRegresar, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +409,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarEspecie)
-                    .addComponent(btnEditarAnimales))
+                    .addComponent(btnEditarAnimales)
+                    .addComponent(btnRegresar))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -483,12 +496,26 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.clickBtnRegistrarActualizarItinerario();
     }//GEN-LAST:event_btnRegistrarActualizarItinerariosActionPerformed
 
+    /**
+     * Regresa el frame a su estado principal
+     * @param evt 
+     */
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        this.dispose();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrmPrincipal().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditarAnimales;
     private javax.swing.JButton btnGuardarEspecie;
     private javax.swing.JButton btnRegistrarActualizarEspecie;
     private javax.swing.JButton btnRegistrarActualizarItinerarios;
     private javax.swing.JButton btnRegistrarHabitat;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnVerificarNombreEspecie;
     private javax.swing.JComboBox<String> cajaCombinadaCuidadores;
     private javax.swing.JComboBox<String> cajaCombinadaHabitats;
