@@ -29,6 +29,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         this.negocio = FabricaNegocios.crearFNegocio();
         this.cargarCajaItinerarios();
         this.limpiarCampos();
+
     }
 
     /**
@@ -352,7 +353,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         } catch (Exception ex) {
             this.mostrarMensajeError("Hubo un error al cargar los días");
         }
-
+        limpiarCampos();
     }//GEN-LAST:event_cajaCombinadaItinerariosItemStateChanged
 
     /**
@@ -379,7 +380,9 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         } catch (Exception e) {
             this.mostrarMensajeError("Error al establecer la hora.");
 
-        }    }//GEN-LAST:event_cajaCombinadaDiasItemStateChanged
+        }
+
+    }//GEN-LAST:event_cajaCombinadaDiasItemStateChanged
 
     /**
      * Asegura que los campos estén limpios cuando se ejecute el programa por
@@ -407,7 +410,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
                 }
             }
-            cajaCombinadaItinerarios.setSelectedItem(null);
+            cajaCombinadaItinerarios.setSelectedIndex(NINGUNO);
         } catch (Exception ex) {
             this.mostrarMensajeError("Hubo un error al cargar los itinerarios");
         }
@@ -422,7 +425,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private final short NINGUNO = -1;
+    private final int NINGUNO = -1;
     private INegocio negocio;
 
 
