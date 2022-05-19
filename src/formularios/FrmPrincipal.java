@@ -153,13 +153,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.activarCamposEspecie();
         this.campoTextoNombreCientifico.setText(especie.getNombreCientifico());
         this.campoTextoDescripcion.setText(especie.getDescripcion());
-        this.cajaCombinadaCuidadores.setEnabled(true);
-        this.cajaCombinadaHabitats.setEnabled(true);
+        this.cajaCombinadaCuidadores.setEnabled(false);
+        this.cajaCombinadaHabitats.setEnabled(false);
         this.campoTextoNombre.setEditable(false);
         this.campoTextoNombreCientifico.setEditable(false);
         this.campoTextoDescripcion.setEditable(false);
-        this.btnGuardarEspecie.setEnabled(true);
-        this.btnGuardarEspecie.setText("Editar");
+        this.btnGuardarEspecie.setEnabled(false);
     }
 
     /**
@@ -186,16 +185,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         if (bEspecie != null) {
             this.mostrarMensajeEspecieRepetida(bEspecie);
-
-            int indiceCuidadorSeleccionado = this.cajaCombinadaCuidadores.getSelectedIndex();
-            ObjectId idCuidador = this.listaCuidadores.get(indiceCuidadorSeleccionado).getId();
-            this.negocio.agregarEspecieCuidador(idCuidador, new Especie(bEspecie.getId(), bEspecie.getNombreEspaniol()));
-
-            int indiceHabitatSeleccionado = this.cajaCombinadaHabitats.getSelectedIndex();
-            ObjectId idHabitat = this.listaHabitats.get(indiceHabitatSeleccionado).getId();
-            this.negocio.agregarEspecieHabitat(idHabitat, bEspecie.getId());
             return;
         }
+        
         boolean seAgrego = this.negocio.guardarEspecie(especie);
         if (seAgrego) {
             this.mostrarMensajeEspecieGuardada(especie);
