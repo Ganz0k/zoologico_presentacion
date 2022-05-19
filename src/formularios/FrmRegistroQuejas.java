@@ -63,6 +63,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro Quejas");
+        setBackground(new java.awt.Color(41, 80, 109));
 
         lblVisitante.setText("Visitante");
 
