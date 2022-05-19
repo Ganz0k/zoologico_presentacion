@@ -11,6 +11,7 @@ import interfaces.INegocio;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.bson.types.ObjectId;
@@ -23,6 +24,7 @@ public class FrmEditarAnimal extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmEditarAnimal
+     *
      * @param especie
      * @param negocio
      */
@@ -30,18 +32,18 @@ public class FrmEditarAnimal extends javax.swing.JFrame {
         this.negocio = negocio;
         this.especie = especie;
 
-        
         initComponents();
-        
+        setIconImage(new ImageIcon(getClass().getResource("/icons/Tiger-icon.png")).getImage());
+
         this.cajaCombinadaSexo.addItem("MACHO");
         this.cajaCombinadaSexo.addItem("HEMBRA");
         this.mostrarTablaAnimalesEspecie();
     }
-    
+
     /**
      * Muestra la tabla de animales
      */
-    private void mostrarTablaAnimalesEspecie(){
+    private void mostrarTablaAnimalesEspecie() {
         List<Animal> listaAnimales = this.negocio.consultarAnimalesEspecie(this.especie.getId());
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tablaAnimales.getModel();
         modeloTabla.setRowCount(0);
@@ -54,54 +56,54 @@ public class FrmEditarAnimal extends javax.swing.JFrame {
             modeloTabla.addRow(fila);
         });
     }
-    
+
     /**
      * Agrega un nuevo animal
      */
-    private void clickBtnAgregar(){
-        if(this.campoTextoNombre.getText().isEmpty() || this.campoTextoEdad.getText().isEmpty() || this.cajaCombinadaSexo.getSelectedItem() == null){
+    private void clickBtnAgregar() {
+        if (this.campoTextoNombre.getText().isEmpty() || this.campoTextoEdad.getText().isEmpty() || this.cajaCombinadaSexo.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Debe de llenar los campos para poder agregar un animal", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if(this.campoTextoNombre.getText().length() > 100){
+        if (this.campoTextoNombre.getText().length() > 100) {
             JOptionPane.showMessageDialog(this, "El campo nombre está muy largo", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
         String nombre = this.campoTextoNombre.getText();
-        
+
         boolean esEntero = this.validaEntero(this.campoTextoEdad.getText());
-        if(!esEntero){
+        if (!esEntero) {
             JOptionPane.showMessageDialog(this, "La edad debe de ser un número entero", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
         int edad = Integer.parseInt(this.campoTextoEdad.getText());
-        
-        if(edad < 0 || edad > 150){
+
+        if (edad < 0 || edad > 150) {
             JOptionPane.showMessageDialog(this, "La edad no puede ser un número negativo o mayor a 150", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         Animal animal = new Animal(nombre, edad);
-        
+
         String sexo = (String) this.cajaCombinadaSexo.getSelectedItem();
-        if(sexo.equalsIgnoreCase("MACHO")){
+        if (sexo.equalsIgnoreCase("MACHO")) {
             animal.setSexo(Sexo.MACHO);
-        }else{
+        } else {
             animal.setSexo(Sexo.HEMBRA);
         }
-        
+
         List<Animal> lista = this.negocio.consultarAnimalesEspecie(this.especie.getId());
-        for(Animal a : lista){
-            if(a.getNombreAnimal().equalsIgnoreCase(nombre)){
+        for (Animal a : lista) {
+            if (a.getNombreAnimal().equalsIgnoreCase(nombre)) {
                 JOptionPane.showMessageDialog(this, "Un animal con el nombre: " + nombre + " ya existe", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }
-        
+
         animal.setId(new ObjectId());
         this.negocio.guardarAnimal(this.especie.getId(), animal);
         this.mostrarTablaAnimalesEspecie();
     }
-    
+
     /**
      * Valida si la cadena s sólo contiene digitos.
      *
@@ -122,38 +124,39 @@ public class FrmEditarAnimal extends javax.swing.JFrame {
         }
         return false;
     }
-    
+
     /**
      * Obtiene el id del animal a eliminar
+     *
      * @return id del animal a eliminar
      */
-    private ObjectId getAnimalEliminar(){
+    private ObjectId getAnimalEliminar() {
         int indiceFilaSeleccionada = this.tablaAnimales.getSelectedRow();
-        if(indiceFilaSeleccionada != -1){
+        if (indiceFilaSeleccionada != -1) {
             DefaultTableModel modelo = (DefaultTableModel) this.tablaAnimales.getModel();
             int indiceColumnaId = 0;
             ObjectId idAnimal = (ObjectId) modelo.getValueAt(indiceFilaSeleccionada, indiceColumnaId);
             return idAnimal;
-        }else{
+        } else {
             return null;
         }
     }
-    
+
     /**
      * Elimina un animal
      */
-    private void clickBtnEliminar(){
+    private void clickBtnEliminar() {
         ObjectId idAnimal = this.getAnimalEliminar();
-        if(idAnimal == null){
+        if (idAnimal == null) {
             JOptionPane.showMessageDialog(this, "Seleccione un animal de la tabla para poder eliminarlo", "Adevertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         int opcionSeleccionada = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el animal con id: " + idAnimal + "?", "Confirmación", JOptionPane.YES_NO_OPTION);
-        if(opcionSeleccionada == JOptionPane.NO_OPTION){
+        if (opcionSeleccionada == JOptionPane.NO_OPTION) {
             return;
         }
-        
+
         this.negocio.eliminarAnimal(this.especie.getId(), idAnimal);
         this.mostrarTablaAnimalesEspecie();
     }
@@ -292,7 +295,8 @@ public class FrmEditarAnimal extends javax.swing.JFrame {
 
     /**
      * Agrega un animal
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         this.clickBtnAgregar();
@@ -300,7 +304,8 @@ public class FrmEditarAnimal extends javax.swing.JFrame {
 
     /**
      * Elimina un animal
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         this.clickBtnEliminar();
@@ -308,7 +313,8 @@ public class FrmEditarAnimal extends javax.swing.JFrame {
 
     /**
      * Cierra el frame
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.dispose();

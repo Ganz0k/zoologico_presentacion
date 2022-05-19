@@ -11,6 +11,7 @@ import factory.FabricaNegocios;
 import interfaces.INegocio;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.bson.types.ObjectId;
 
@@ -27,6 +28,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         this.negocio = FabricaNegocios.crearFNegocio();
 
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/icons/Tiger-icon.png")).getImage());
 
         this.listaHabitats = new ArrayList<>();
         this.listaCuidadores = new ArrayList<>();
@@ -100,11 +102,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El campo nombre está vacío", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if(this.campoTextoNombre.getText().length() > 100){
+        if (this.campoTextoNombre.getText().length() > 100) {
             JOptionPane.showMessageDialog(this, "El nombre es muy largo, no debe de tener más de 100 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         String nombre = this.campoTextoNombre.getText();
         Especie especie = this.negocio.consultarEspecie(nombre);
         if (especie == null) {
@@ -168,11 +170,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
             this.mostrarMensajeCamposVacios();
             return;
         }
-        if(this.campoTextoNombreCientifico.getText().length() > 100){
+        if (this.campoTextoNombreCientifico.getText().length() > 100) {
             JOptionPane.showMessageDialog(this, "El nombre científico es muy largo, no debe de tener más de 100 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if(this.campoTextoDescripcion.getText().length() > 200){
+        if (this.campoTextoDescripcion.getText().length() > 200) {
             JOptionPane.showMessageDialog(this, "La descripción es muy larga, no debe de tener más de 200 caracteres", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }

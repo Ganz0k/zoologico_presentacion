@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -36,6 +37,7 @@ public class FrmRegistroItinerario extends javax.swing.JFrame {
         this.negocio = negocio;
         initComponents();
         this.setLocationRelativeTo(null);
+        setIconImage(new ImageIcon(getClass().getResource("/icons/Tiger-icon.png")).getImage());
 
         this.setTitle("Registro/Consulta de Itinerario");
 

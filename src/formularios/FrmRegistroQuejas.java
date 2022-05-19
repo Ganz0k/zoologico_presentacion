@@ -13,6 +13,7 @@ import factory.FabricaNegocios;
 import interfaces.INegocio;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +30,7 @@ public class FrmRegistroQuejas extends javax.swing.JFrame {
         this.negocio = FabricaNegocios.crearFNegocio();
         this.cargarCajaItinerarios();
         this.limpiarCampos();
+        setIconImage(new ImageIcon(getClass().getResource("/icons/Tiger-icon.png")).getImage());
 
     }
 

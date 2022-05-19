@@ -9,6 +9,7 @@ import interfaces.INegocio;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +29,7 @@ public class FrmRegistroHabitat extends javax.swing.JFrame {
         this.negocio = negocio;
 
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/icons/Tiger-icon.png")).getImage());
 
         this.listaClimas = Arrays.asList("Ecuatorial", "Tropical seco", "Tropical húmedo", "Monzónico", "Árido", "Mediterráneo", "Oceánico", "Continental", "Chino", "Tundra", "Glacial", "Montaña");
         this.listaVegetaciones = Arrays.asList("Acuática", "Halófila", "Gipsófila");

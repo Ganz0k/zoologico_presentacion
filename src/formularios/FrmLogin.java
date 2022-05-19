@@ -4,18 +4,13 @@
  */
 package formularios;
 
-import com.jtattoo.plaf.AbstractLookAndFeel;
-import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
-import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
 import com.jtattoo.plaf.hifi.HiFiLookAndFeel;
-import com.jtattoo.plaf.noire.NoireLookAndFeel;
-import com.jtattoo.plaf.smart.SmartLookAndFeel;
-import com.jtattoo.plaf.texture.TextureLookAndFeel;
 import entidades.Administrador;
 import factory.FabricaNegocios;
 import interfaces.INegocio;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -31,8 +26,9 @@ public class FrmLogin extends javax.swing.JFrame {
      */
     public FrmLogin() {
         this.negocio = FabricaNegocios.crearFNegocio();
-
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/icons/Tiger-icon.png")).getImage());
+
     }
 
     /**
@@ -206,7 +202,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     /**
      * Método main
-     * 
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -236,8 +232,7 @@ public class FrmLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                
+
                 try {
                     UIManager.setLookAndFeel(new HiFiLookAndFeel());
                 } catch (UnsupportedLookAndFeelException ex) {
